@@ -1,15 +1,15 @@
 import express from "express";
 import morgan from "morgan";
+import bodyParser from "body-parser";
+import cors from "cors";
 
 const app = express();
 const logger = morgan("dev");
 
-const handleHome = (req, res) => {
-   return res.send("Hi !");
-}
-
+app.use(cors());
 app.use(logger);
-app.get("/", handleHome);
+app.use(bodyParser.json());
+app.get('/', (req, res)=> res.json({name:'yjbenkang'}));
 
 const PORT = process.env.PORT || 4000;
 
