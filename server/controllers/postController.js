@@ -1,8 +1,9 @@
 
-const posts= [
-
-]
-
+const posts = [
+  { id: 1, 제목: 'post1', 내용: '동일스'},
+  { id: 2, 제목: 'post2', 내용: '동일스'},
+  { id: 3, 제목: 'post3', 내용: '동일스'},
+];
 // Read All
 export const home = (req, res) => {
     return res.json(posts)
@@ -45,10 +46,11 @@ export const getEdit = (req,res) => {
 
 export const postEdit = (req, res) => {
   const {id} = req.params;
-  let post = posts.find(post => post.id === parseInt(id));
+  const post = posts.find(post => post.id === parseInt(id));
   if(!post) res.status(404).send('게시물이 존재하지 않습니다');
-  post = {...req.body};
-
+  const {제목,내용} = req.body;
+  post.제목 = 제목;
+  post.내용 = 내용;
   return res.json(post);
 };
 
