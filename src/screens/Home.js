@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { getName } from "../api";
+import Loader from "../components/Loader";
+import { getPosts } from "../api";
 
 export default function Home() {
     const [loading, setLoading] = useState(true);
-    const [name, setName] = useState();
+    const [posts, setPosts] = useState();
     async function getHome() {
         try {
-            const {data:{name}} = await getName();
-            setName(name);
+            const {data : posts} = await getPosts();
+            console.log(posts);
+            setPosts(posts);
         } catch (e) {
             console.log(e);
         } finally {
@@ -17,7 +19,9 @@ export default function Home() {
     useEffect(()=> {
         getHome();
     }, []);
-    return (
-        <div>{name}</div>
+    return loading? (
+      <Loader/>
+    ) : (
+        posts.map(post=> <div key={post.id}>{post.제목}{post.내용}</div>)
     );
 }
