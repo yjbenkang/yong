@@ -1,9 +1,6 @@
+
 const posts= [
-    {
-      id:1,
-      제목:"Hi",
-      내용:"저는 강용진입니다."
-    }
+
 ]
 
 // Read All
@@ -41,3 +38,26 @@ export const postUpload = (req, res) => {
 // Input Validation
 // 보안을 위해서는 절대 client가 보내는 데이터를 믿어서는 안된다.
 // 따라서 예를들어 이와 같이 (1) 이름은 있어야하고, (2) 길이는 반드시 3이상이여야 한다. 라는 조건을 걸어 유효성을 검사한다.
+
+export const getEdit = (req,res) => {
+  return;
+};
+
+export const postEdit = (req, res) => {
+  const {id} = req.params;
+  let post = posts.find(post => post.id === parseInt(id));
+  if(!post) res.status(404).send('게시물이 존재하지 않습니다');
+  post = {...req.body};
+
+  return res.json(post);
+};
+
+export const deletePost = (req, res) => {
+  const post = posts.find(post => post.id === parseInt(req.params.id));
+  if(!post) return res.status(404).send('해당 게시물이 존재하지 않습니다.');
+
+  const index = posts.indexOf(post);
+  posts.splice(index, 1);
+
+  return res.json(post);
+};
