@@ -5,5 +5,4 @@ const api = axios.create({
 });
 
 export const getPosts = () => api.get("/");
-export const postPost = () => api.post("/");
 

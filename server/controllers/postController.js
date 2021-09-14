@@ -1,8 +1,8 @@
 
 const posts = [
-  { id: 1, 제목: 'post1', 내용: '동일스'},
-  { id: 2, 제목: 'post2', 내용: '동일스'},
-  { id: 3, 제목: 'post3', 내용: '동일스'},
+  { id: 1, 제목: '게시물1', 내용: '첫번째 게시물입니다.'},
+  { id: 2, 제목: '게시물2', 내용: '두번째 게시물입니다.'},
+  { id: 3, 제목: '게시물3', 내용: '세번째 게시물입니다.'},
 ];
 // Read All
 export const home = (req, res) => {
@@ -50,7 +50,6 @@ export const postEdit = (req, res) => {
   if(!post) res.status(404).send('게시물이 존재하지 않습니다');
   const {제목,내용} = req.body;
   post.제목 = 제목;
-  post.내용 = 내용;
   return res.json(post);
 };
 
