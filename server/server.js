@@ -9,6 +9,8 @@ const logger = morgan("dev");
 
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());//이걸 추가하지 않으면 POST 수행 시 req.body를 가져올 수 없다.
+
 
 app.use("/", rootRouter);
 app.use("/posts", postRouter);
