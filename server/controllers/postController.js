@@ -8,3 +8,9 @@ const posts= [
 export const home = (req, res) => {
     return res.json(posts)
 }
+
+export const watch = (req, res)=> {
+  const {id} = req.params;
+  const post = posts[id-1];
+  return res.json(post);
+}
