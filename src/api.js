@@ -4,5 +4,10 @@ const api = axios.create({
     baseURL: "http://localhost:4000"
 });
 
-export const getPosts = () => api.get("/");
+const getPosts = () => api.get("/");
+const getPost = id => api.get(`/posts/${id}`);
 
+export default {
+    getPosts,
+    getPost
+};

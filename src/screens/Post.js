@@ -2,34 +2,36 @@ import React, { useState, useEffect } from "react";
 import Loader from "../components/Loader";
 import api from "../api";
 
-const Home = () => {
+export default function Post({
+    match: {
+      params: { id }
+    }
+  })  {
     const [loading, setLoading] = useState(true);
-    const [posts, setPosts] = useState();
-    async function getHome() {
+    const [post, setPost] = useState();
+    async function getOnePost() {
         try {
-            const {data : posts} = await api.getPosts();
-            console.log(posts);
-            setPosts(posts);
+            const {data :post} = await api.getPost(id);
+            setPost(post);
         } catch (e) {
             console.log(e);
         } finally {
             setLoading(false);
         }
-    }
-    useEffect(()=> {
-        getHome();
-    }, []);
+
+    };
+    useEffect(()=>{
+        getOnePost();
+    },[]);
     return (
         <div>
           {loading && < Loader />}
-          {posts && posts.map((post) => 
+          {post &&  
             <div key={`${post.id}`}>
              <h4>{post.제목}</h4>
                <h3>{post.내용}</h3>
             </div>
-          )}
+          }
         </div>
     );
 }
-
-export default Home;
