@@ -34,11 +34,9 @@ export default function Post({
                <h4>{post.제목}</h4>
                <h3>{post.내용}</h3>
                <form onSubmit={deletePost}>
-               {/* <input onChange={updatePostId} value={readPostId} /> */}
                <input type="submit" value="게시물 삭제" />
-                </form>
+               </form>
               {status && <Redirect to="/" />}
-              {/* {readStatus && <p>{readStatus}</p>} */}
             </div>
           }
       </div>
