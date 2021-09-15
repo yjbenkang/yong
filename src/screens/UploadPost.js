@@ -1,41 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
 
-export const UploadPost = (req,id) => {
+export const UploadPost = (id) => {
     const [status,setStatus]=useState("");
-    const [disabled, setDisabled] = useState(false);
-    const [title, setTitle] = useState("");
-    const handleChange = ({ target: { value } }) => setTitle(value);
-    const post = {제목:title, 내용:"네번째 게시물입니다."};
+    const [disabled, setDisabled]=useState(false);
+    const [values, setValues]=useState({});
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setValues({ ...values, [name]: value });
+    }
+    const post = {제목:values.title, 내용:values.text};
     const handleSubmit = async (e) => {
-        
         try{
             setDisabled(true);
             e.preventDefault();
-            const response = await Axios.post(`http://localhost:4000/posts/upload`,
-            post);
+            await Axios.post(`http://localhost:4000/posts/upload`, post);
             setStatus("게시물이 성공적으로 게시되었습니다.");
             setTimeout(() => setStatus(""), 3000);
-            if (title.length <= 1) {
-                alert("제목을 입력하세요.");
-              } else {
-                alert(`제목: ${title}`);
-              }
+            alert(`게시물이 등록되었습니다.`);
             setDisabled(false);
         } catch (err){
             setStatus("게시물을 게시할 수 없습니다.");
         }
-        
-
     }
+
     return (
         <div>
             {/* https://penguingoon.tistory.com/188 (onSubmit에 대한 설명) */}
             <form onSubmit={handleSubmit}>
                 <label>
                   제목:
-                  <input type="text" name="title" value={title} onChange={handleChange}/>
+                  <input type="text" name="title" value={values.title} onChange={handleChange}/>
+                </label>
+                <label>
+                  내용:
+                  <input
+                  type="textarea"
+                  name="text"
+                  value={values.text}
+                  onChange={handleChange}
+                  />
                 </label>
                 <button type="submit" disabled={disabled}>게시물 올리기</button>
             </form>
