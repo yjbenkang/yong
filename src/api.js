@@ -6,8 +6,12 @@ const api = axios.create({
 
 const getPosts = () => api.get("/");
 const getPost = id => api.get(`/posts/${id}`);
+const editPost = id => api.put(`/posts/${id}/edit`);
+const uploadPost = id => api.post(`/posts/${id}/upload`);
 
 export default {
     getPosts,
-    getPost
+    getPost,
+    editPost,
+    uploadPost,
 };

@@ -8,6 +8,7 @@ export default ()=> {
         <Router>
             <Route exact path="/" render={(props) => <Home {...props}/>} />
             <Route path="/posts/:id" render={(props) => <Post {...props}/>} />
+            {/* <Route path="/posts/:id/upload" render={(props) => <UploadPost {...props}/>} /> */}
         </Router>
     )
 }
