@@ -9,7 +9,6 @@ const Home = () => {
     async function getHome() {
         try {
             const {data : posts} = await Axios.get("http://localhost:4000/");
-            console.log(posts);
             setPosts(posts);
         } catch (e) {
             console.log(e);
@@ -22,6 +21,7 @@ const Home = () => {
     }, []);
     return (
         <div>
+          <Link to={`posts/upload`}>게시물 등록하기 &rarr;</Link>
           {loading && < Loader />}
           {posts && posts.map((post) => 
             <div key={`${post._id}`}>

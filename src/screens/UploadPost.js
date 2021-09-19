@@ -11,7 +11,7 @@ export const UploadPost = () => {
         const { name, value } = event.target;
         setValues({ ...values, [name]: value });
     }
-    const post = {제목:values.title, 내용:values.text};
+    const post = {제목:values.title, 내용:values.text, createdAt:Date.now()};
     const handleSubmit = async (e) => {
         try{
             setDisabled(true);
@@ -32,14 +32,14 @@ export const UploadPost = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                   제목:
-                  <input type="text" name="title" value={values.title} onChange={handleChange}/>
+                  <input type="text" name="title" value={values.title || ''} onChange={handleChange}/>
                 </label>
                 <label>
                   내용:
                   <input
                   type="textarea"
                   name="text"
-                  value={values.text}
+                  value={values.text || ''}
                   onChange={handleChange}
                   />
                 </label>
