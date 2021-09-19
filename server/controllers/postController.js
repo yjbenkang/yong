@@ -43,13 +43,17 @@ export const getEditPost = (req, res) => {
   return res.send("getEditPost");
 }
 
-export const editPost = (req, res) => {
+export const editPost = async (req, res) => {
+  console.log(req.params);
   const {id} = req.params;
-  const post = posts.find(post => post.id === parseInt(id));
-  if(!post) res.status(404).send('게시물이 존재하지 않습니다');
   const {제목,내용} = req.body;
-  post.제목 = 제목;
-  post.내용 = 내용;
+  const post = await Post.findByIdAndUpdate(id, {
+    제목,
+    내용
+  });
+  if (!post) {
+    return res.status(404).send("Not Found");
+}
   return res.json(post);
 };
 

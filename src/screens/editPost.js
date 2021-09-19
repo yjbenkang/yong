@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
+import Loader from "../components/Loader";
 import { Redirect } from "react-router-dom";
 
 export const EditPost = ({
@@ -9,8 +10,27 @@ export const EditPost = ({
     }) => {
     const [status,setStatus]=useState("");
     const [disabled, setDisabled]=useState(false);
-    const [values, setValues ]= useState({title:"제목", text:'내용'});
+    const [loading, setLoading] = useState(true);
+    const [post, setPost] = useState();
+    const [values, setValues ]= useState({title:"", text:""});
     const [submitting, setSubmitting] = useState(false);
+
+    const setInitialValue = async (id) => {
+      try {
+          const {data :post} = await Axios.get(`http://localhost:4000/posts/${id}`);
+          setPost(post);
+          setValues({title:post.제목,text:post.내용})
+      } catch (e) {
+          console.log(e);
+      } finally {
+          setLoading(false);
+      }
+
+    };
+
+    useEffect(()=>{
+      setInitialValue(id);
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -34,28 +54,30 @@ export const EditPost = ({
     }
 
     return (
-        <div>
-            {/* https://penguingoon.tistory.com/188 (onSubmit에 대한 설명) */}
-            {submitting &&<div>Submtting Form...</div>}
-            <form onSubmit={handleSubmit}>
-                <label>
-                  제목:
-                  <input type="text" name="title" value={values.title} onChange={handleChange}/>
-                </label>
-                <label>
-                  내용:
-                  <input
-                  type="textarea"
-                  name="text"
-                  value={values.text}
-                  onChange={handleChange}
-                  />
-                </label>
-                <button type="submit" disabled={disabled}>게시물 수정하기</button>
-            </form>
-            {status && <Redirect to={`/posts/${id}`} />}
-        </div>
-
+      <div>
+         {loading && < Loader />}
+         {post && 
+           <div>
+             {submitting &&<div>Submtting Form...</div>}
+             <form onSubmit={handleSubmit}>
+               <label>
+                 제목:
+                 <input type="text" name="title" value={values.title} onChange={handleChange}/>
+               </label>
+               <label>
+                 내용:
+                 <input
+                 type="textarea"
+                 name="text"
+                 value={values.text}
+                 onChange={handleChange}
+                 />
+               </label>
+               <button type="submit" disabled={disabled}>게시물 수정하기</button>
+             </form>
+           {status && <Redirect to={`/posts/${id}`} />}
+          </div>}
+      </div>
       );
 };
 

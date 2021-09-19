@@ -21,6 +21,7 @@ export default function Post({
         {loading && < Loader />}
         {post &&  
           <div key={`${post._id}`}>
+            <Link to="/">홈으로 &rarr;</Link>
             <h4>{post.제목}</h4>
             <h3>{post.내용}</h3>
             <form onSubmit={deletePost}>
