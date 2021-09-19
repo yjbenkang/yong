@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import Axios from "axios";
 
@@ -23,8 +24,8 @@ const Home = () => {
         <div>
           {loading && < Loader />}
           {posts && posts.map((post) => 
-            <div key={`${post.id}`}>
-             <h4>{post.제목}</h4>
+            <div key={`${post._id}`}>
+             <Link to={`posts/${post._id}`}>{post.제목}</Link>
                <h3>{post.내용}</h3>
             </div>
           )}

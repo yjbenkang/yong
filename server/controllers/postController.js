@@ -1,13 +1,14 @@
 import Post from "../models/Post";
 // Read All
-export const home = (req, res) => {
-    return res.json(posts)
+export const home = async (req, res) => {
+    const posts = await Post.find({}); 
+    return res.json(posts);
 }
 
 // Read one
-export const watch = (req, res)=> {
+export const watch = async (req, res)=> {
   const {id} = req.params;
-  const post = posts[id-1];
+  const post = await Post.findById(id);
   return res.json(post);
 }
 
