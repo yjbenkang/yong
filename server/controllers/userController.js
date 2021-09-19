@@ -47,4 +47,18 @@ export const logout = (req, res) => {
     req.session.destroy();
     return res.send("Log out ");
 }
-export const see = (req, res) => res.send("See User");
+
+export const see = async (req, res) => {
+    const { id } = req.params;
+    const user = await User.findById(id).populate({
+        path: "posts",
+        populate: {
+            path: "owner",
+            model: "User",
+        },
+    });
+    if (!user) {
+        return res.status(404).send("User not Found");
+    };
+    return res.json(user);
+}

@@ -7,6 +7,7 @@ const postSchema = new mongoose.Schema({
     meta: {
         views: Number
     },
+    owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
 });
 
 const Post = mongoose.model("Post", postSchema);

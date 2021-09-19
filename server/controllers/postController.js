@@ -1,4 +1,6 @@
 import Post from "../models/Post";
+import User from "../models/User";
+
 // Read All
 export const home = async (req, res) => {
     const posts = await Post.find({}); 
@@ -18,21 +20,37 @@ export const getUploadPost = (req, res) => {
 }
 
 export const uploadPost = async (req, res) => {
+  const {
+    user: { _id },
+  } = req.session;
   if(!req.body.제목 || !req.body.내용){
     // 400 Bad Request
     res.status(400).send('제목 혹은 내용이 입력되지 않았습니다.');
     return;
   }
   const {제목, 내용} = req.body;
-  await Post.create({
-    제목,
-    내용,
-    createdAt:Date.now(),
-    meta:{
-      views:0,
-    }
-  })
-  return res.send("uploaded completely");
+
+  try{
+    const newVideo = await Post.create({
+      제목,
+      내용,
+      createdAt:Date.now(),
+      owner: _id,
+      meta:{
+        views:0,
+      }
+    })
+    const user = await User.findById(_id);
+    console.log(`user${user}`);
+    user.posts.push(newVideo._id);
+    user.save();
+    return res.send("uploaded completely");
+  } catch (error) {
+    return res.status(400).send("에러");
+  } finally {
+  }
+  
+  
 };
 // 나중에는 id는 데이터베이스에 의해 자동으로 할당된다.
 // Input Validation
