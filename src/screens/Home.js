@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Loader from "../components/Loader";
-import api from "../api";
+import Axios from "axios";
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState();
     async function getHome() {
         try {
-            const {data : posts} = await api.getPosts();
+            const {data : posts} = await Axios.get("http://localhost:4000/");
             console.log(posts);
             setPosts(posts);
         } catch (e) {

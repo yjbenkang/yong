@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
 
-export const UploadPost = (id) => {
+export const UploadPost = () => {
     const [status,setStatus]=useState("");
     const [disabled, setDisabled]=useState(false);
     const [values, setValues]=useState({});

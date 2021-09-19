@@ -44,6 +44,7 @@ export const editPost = (req, res) => {
   if(!post) res.status(404).send('게시물이 존재하지 않습니다');
   const {제목,내용} = req.body;
   post.제목 = 제목;
+  post.내용 = 내용;
   return res.json(post);
 };
 

@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { useState } from "react";
 
-export const DeletePost = (id) => {
+export const useDeletePost = (id) => {
     const [status, setStatus] = useState("");
     const deletePost = async (e) => {
         e.preventDefault();
