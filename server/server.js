@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+
 import rootRouter from "./routers/rootRouter";
 import postRouter from "./routers/postRouter";
 import userRouter from "./routers/userRouter";
@@ -18,9 +19,6 @@ app.use("/", rootRouter);
 app.use("/posts", postRouter);
 // app.use("/users", userRouter);
 
-const PORT = process.env.PORT || 4000;
+export default app;
 
-const handleListening = () =>
-    console.log(`🚀 Server listening on port http://localhost:${PORT} 🚀`);
 
-app.listen(PORT, handleListening);

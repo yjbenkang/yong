@@ -1,9 +1,4 @@
-
-const posts = [
-  { id: 1, 제목: '게시물1', 내용: '첫번째 게시물입니다.'},
-  { id: 2, 제목: '게시물2', 내용: '두번째 게시물입니다.'},
-  { id: 3, 제목: '게시물3', 내용: '세번째 게시물입니다.'},
-];
+import Post from "../models/Post";
 // Read All
 export const home = (req, res) => {
     return res.json(posts)
