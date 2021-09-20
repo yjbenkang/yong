@@ -24,14 +24,13 @@ export const uploadPost = async (req, res) => {
     user: { _id },
   } = req.session;
   if(!req.body.제목 || !req.body.내용){
-    // 400 Bad Request
     res.status(400).send('제목 혹은 내용이 입력되지 않았습니다.');
     return;
   }
   const {제목, 내용} = req.body;
 
   try{
-    const newVideo = await Post.create({
+    const newPost = await Post.create({
       제목,
       내용,
       createdAt:Date.now(),
@@ -41,8 +40,7 @@ export const uploadPost = async (req, res) => {
       }
     })
     const user = await User.findById(_id);
-    console.log(`user${user}`);
-    user.posts.push(newVideo._id);
+    user.posts.push(newPost._id);
     user.save();
     return res.send("uploaded completely");
   } catch (error) {
@@ -62,21 +60,44 @@ export const getEditPost = (req, res) => {
 }
 
 export const editPost = async (req, res) => {
-  console.log(req.params);
+  const {
+    user: { _id },
+  } = req.session;
   const {id} = req.params;
   const {제목,내용} = req.body;
-  const post = await Post.findByIdAndUpdate(id, {
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return res.status(404).send("Not Found");
+  }
+
+  if (String(post.owner) !== String(_id)) {
+    return res.status(403).send("해당 게시물의 작성자가 아닙니다.");
+  }
+
+  await Post.findByIdAndUpdate(id, {
     제목,
     내용
   });
-  if (!post) {
-    return res.status(404).send("Not Found");
-}
+
   return res.json(post);
 };
 
 export const deletePost = async (req, res) => {
+  const {
+    user: { _id },
+  } = req.session;
   const { id } = req.params;
+
+  const post = await Post.findById(id);
+
+  if (!post) {
+    return res.status(404).send("Post not found.");
+  }
+  if (String(post.owner) !== String(_id)) {
+    return res.status(403).send("해당 게시물의 작성자가 아닙니다.");
+  }
+
   await Post.findByIdAndDelete(id);
   return res.send("post's deleted completely");
 };

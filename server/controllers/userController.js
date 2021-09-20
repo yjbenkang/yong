@@ -114,18 +114,21 @@ export const postChangePassword = async (req, res) => {
     } = req;
     const user = await User.findById(_id);
     const ok = await bcrypt.compare(oldPassword, user.password);
+
     if (!ok) {
         return res.status(400).render("change-password", {
             pageTitle: "Change Password",
             errorMessage: "The current password is incorrect",
         });
     }
+
     if (newPassword !== newPasswordConfirmation) {
         return res.status(400).render("change-password", {
             pageTitle: "Change Password",
             errorMessage: "The password does not match the confirmation",
         });
     }
+    
     user.password = newPassword;
     await user.save();
     return res.send("비밀번호가 변경되었습니다.");
