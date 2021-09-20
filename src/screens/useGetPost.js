@@ -10,7 +10,7 @@ export const useGetPost = (id) => {
             const {data :post} = await Axios.get(`http://localhost:4000/posts/${id}`);
             setPost(post);
         } catch (e) {
-            console.log(e);
+            console.log(e.response);
         } finally {
             setLoading(false);
         }

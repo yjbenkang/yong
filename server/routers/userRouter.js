@@ -8,6 +8,6 @@ userRouter.post("/edit", protectorMiddleware, postEdit);
 userRouter.post("/change-password", protectorMiddleware, postChangePassword);
 userRouter.post("/remove", remove);
 userRouter.post("/logout", protectorMiddleware, logout);
-userRouter.get("/:id", see)
+userRouter.get("/:id([0-9a-f]{24})", see)
 
 export default userRouter;
