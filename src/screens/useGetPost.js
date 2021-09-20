@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import { useState } from "react";
 
 export const useGetPost = (id) => {
@@ -7,10 +7,10 @@ export const useGetPost = (id) => {
 
     const getOnePost = async () => {
         try {
-            const {data :post} = await Axios.get(`http://localhost:4000/posts/${id}`);
+            const {data :post} = await axios.get(`http://localhost:4000/posts/${id}`);
             setPost(post);
-        } catch (e) {
-            console.log(e.response);
+        } catch (err) {
+            console.log(err.response);
         } finally {
             setLoading(false);
         }

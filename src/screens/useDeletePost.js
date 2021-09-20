@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import { useState } from "react";
 
 export const useDeletePost = (id) => {
@@ -6,7 +6,7 @@ export const useDeletePost = (id) => {
     const deletePost = async (e) => {
         e.preventDefault();
         try {
-          await Axios.delete(`http://localhost:4000/posts/${id}/delete`);
+          await axios.delete(`http://localhost:4000/posts/${id}/delete`);
           setStatus("게시물이 성공적으로 삭제되었습니다.");
           setTimeout(() => setStatus(""), 3000);
         } catch (err) {

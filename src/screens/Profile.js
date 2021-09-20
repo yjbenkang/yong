@@ -15,8 +15,8 @@ export default function Profile({
       try {
         const { data: user } = await axios.get(`http://localhost:4000/users/${id}`)
         setUser(user);
-      } catch (e){
-        console.log(e.response);
+      } catch (err){
+        console.log(err.response);
       } finally {
           setLoading(false);
       }

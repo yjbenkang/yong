@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { Redirect } from "react-router-dom";
 
 export const UploadPost = () => {
@@ -16,13 +16,14 @@ export const UploadPost = () => {
         try{
             setDisabled(true);
             e.preventDefault();
-            await Axios.post(`http://localhost:4000/posts/upload`, post);
+            await axios.post(`http://localhost:4000/posts/upload`, post);
             setStatus("게시물이 성공적으로 게시되었습니다.");
             setTimeout(() => setStatus(""), 3000);
             alert(`게시물이 등록되었습니다.`);
             setDisabled(false);
         } catch (err){
             setStatus("게시물을 게시할 수 없습니다.");
+            console.log(err.response);
         }
     }
 

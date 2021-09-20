@@ -8,7 +8,6 @@ export const EditProfile = ({
       params: { id }
     }
     }) => {
-    console.log(id);
     const [status,setStatus]=useState("");
     const [disabled, setDisabled]=useState(false);
     const [loading, setLoading] = useState(true);
@@ -19,11 +18,10 @@ export const EditProfile = ({
     const setInitialValue = async () => {
       try {
         const { data:user } = await axios.get(`http://localhost:4000/users/${id}`)
-        console.log(user);
         setUser(user);
         setValues({name:user.name,email:user.email, username:user.username, location:user.location})
-      } catch (e) {
-          console.log(e.response);
+      } catch (err) {
+          console.log(err.response);
       } finally {
           setLoading(false);
       }
@@ -37,7 +35,6 @@ export const EditProfile = ({
     const handleChange = (event) => {
         const { name, value } = event.target;
         setValues({ ...values, [name]: value });
-        console.log(values);
     }
     const newUser = {name:values.name, email:values.email, username:values.username, location:values.location};
     const handleSubmit = async (e) => {

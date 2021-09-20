@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Redirect,Route, Link } from "react-router-dom";
-import Axios from "axios";
+import React, { useEffect } from "react";
+import { Redirect, Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { useDeletePost } from "./useDeletePost";
-import { EditPost } from "./EditPost";
 import { useGetPost } from "./useGetPost";
 
 export default function Post({

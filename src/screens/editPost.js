@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import Loader from "../components/Loader";
 import { Redirect } from "react-router-dom";
 
@@ -17,11 +17,11 @@ export const EditPost = ({
 
     const setInitialValue = async (id) => {
       try {
-          const {data :post} = await Axios.get(`http://localhost:4000/posts/${id}`);
+          const {data :post} = await axios.get(`http://localhost:4000/posts/${id}`);
           setPost(post);
           setValues({title:post.제목,text:post.내용})
-      } catch (e) {
-          console.log(e);
+      } catch (err) {
+          console.log(err.response);
       } finally {
           setLoading(false);
       }
@@ -42,7 +42,7 @@ export const EditPost = ({
             setDisabled(true);
             e.preventDefault();
             setSubmitting(true);
-            await Axios.put(`http://localhost:4000/posts/${id}/edit`, newPost);
+            await axios.put(`http://localhost:4000/posts/${id}/edit`, newPost);
             setSubmitting(false);
             setStatus("게시물이 성공적으로 수정되었습니다.");
             setTimeout(() => setStatus(""), 3000);

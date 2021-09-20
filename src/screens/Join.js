@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
@@ -31,7 +31,6 @@ export default function Join() {
           setTimeout(() => setStatus(""), 3000);
           alert("가입이 완료되었습니다 !");
           setDisabled(false);
-          console.log("가입성공");
         } catch (err) {
           setStatus("가입할 수 없습니다.");
           console.log(err.response);

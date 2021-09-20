@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
@@ -30,7 +30,6 @@ export default function Login() {
           setTimeout(() => setStatus(""), 3000);
           alert("로그인되었습니다 !");
           setDisabled(false);
-          console.log("로그인성공");
         } catch (err) {
           setStatus("로그인할 수 없습니다.");
           console.log(err.response);

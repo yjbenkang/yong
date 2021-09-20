@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
-import Axios from "axios";
+import axios from "axios";
 import { useLogout } from "./useLogout";
 
 const Home = () => {
@@ -10,10 +10,10 @@ const Home = () => {
     const [status,{logout}] = useLogout();
     async function getHome() {
         try {
-            const {data : posts} = await Axios.get("http://localhost:4000/");
+            const {data : posts} = await axios.get("http://localhost:4000/");
             setPosts(posts);
-        } catch (e) {
-            console.log(e);
+        } catch (err) {
+            console.log(err.response);
         } finally {
             setLoading(false);
         }
