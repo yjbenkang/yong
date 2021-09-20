@@ -3,14 +3,16 @@ import User from "../models/User";
 
 // Read All
 export const home = async (req, res) => {
-    const posts = await Post.find({}); 
+    const posts = await Post.find({})
+      .sort({ createdAt: "desc" })
+      .populate("owner");
     return res.json(posts);
 }
 
 // Read one
 export const watch = async (req, res)=> {
   const {id} = req.params;
-  const post = await Post.findById(id);
+  const post = await Post.findById(id).populate("owner");
   return res.json(post);
 }
 

@@ -15,11 +15,15 @@ app.use(logger);
 app.use(session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialize:false,
     store: MongoStore.create({ mongoUrl: process.env.DB_URL }),})
 );
 app.use(localsMiddleware);
-app.use(cors());
+const corsOptions = {
+    origin : true,
+    credentials : true
+};
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());//이걸 추가하지 않으면 POST 수행 시 req.body를 가져올 수 없다.
 

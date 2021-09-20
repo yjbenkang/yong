@@ -29,6 +29,8 @@ export const postJoin = async (req, res) => {
     }
 };
 
+export const getLogin = (req, res) => res.send("log in");
+
 export const postLogin = async (req, res) => {
     const {username, password} = req.body;
     const user = await User.findOne({ username });
@@ -43,6 +45,8 @@ export const postLogin = async (req, res) => {
 
     req.session.loggedIn = true;
     req.session.user = user;
+
+    console.log(req.session);
 
     return res.send(req.session);
 }
@@ -128,7 +132,7 @@ export const postChangePassword = async (req, res) => {
             errorMessage: "The password does not match the confirmation",
         });
     }
-    
+
     user.password = newPassword;
     await user.save();
     return res.send("비밀번호가 변경되었습니다.");
