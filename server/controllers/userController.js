@@ -2,16 +2,19 @@ import bcrypt from "bcrypt";
 import User from "../models/User";
 
 export const getJoin = (req, res) => res.send("join");
+
 export const postJoin = async (req, res) => {
-    console.log(req.body);
     const { name, username, email, password, password2, location } = req.body;
+
     if (password !== password2) {
         return res.status(400).send("Password confirmation does not match.");
     }
+
     const exists = await User.exists({ $or: [{ username }, { email }] });
     if (exists) {
         return res.status(400).send("This username/email is already taken.");
     }
+
     try {
         await User.create({
             name,
@@ -29,6 +32,7 @@ export const postJoin = async (req, res) => {
 export const postLogin = async (req, res) => {
     const {username, password} = req.body;
     const user = await User.findOne({ username });
+
     if (!user) {
         return res.status(400).send("An account with this username does not exists.");
     }
@@ -36,8 +40,10 @@ export const postLogin = async (req, res) => {
     if (!ok) {
         return res.status(400).send("Wrong password")
     }
+
     req.session.loggedIn = true;
     req.session.user = user;
+
     return res.send(req.session);
 }
 
@@ -97,4 +103,30 @@ export const see = async (req, res) => {
         return res.status(404).send("User not Found");
     };
     return res.json(user);
+}
+
+export const postChangePassword = async (req, res) => {
+    const {
+        session: {
+            user: { _id },
+        },
+        body: { oldPassword, newPassword, newPasswordConfirmation },
+    } = req;
+    const user = await User.findById(_id);
+    const ok = await bcrypt.compare(oldPassword, user.password);
+    if (!ok) {
+        return res.status(400).render("change-password", {
+            pageTitle: "Change Password",
+            errorMessage: "The current password is incorrect",
+        });
+    }
+    if (newPassword !== newPasswordConfirmation) {
+        return res.status(400).render("change-password", {
+            pageTitle: "Change Password",
+            errorMessage: "The password does not match the confirmation",
+        });
+    }
+    user.password = newPassword;
+    await user.save();
+    return res.send("비밀번호가 변경되었습니다.");
 }
