@@ -41,8 +41,44 @@ export const postLogin = async (req, res) => {
     return res.send(req.session);
 }
 
-export const edit = (req, res) => res.send("Edit");
+export const postEdit = async (req, res) => {
+    const {
+        session: {
+            user: {_id},
+        },
+        body: {name, email, username, location}
+    } = req;
+    const sessionUsername = req.session.user.username;
+    const sessionEmail = req.session.user.email;
+
+    if (sessionUsername != username) {
+        const usernameExists = await User.exists({ username })
+        if (usernameExists) {
+            return res.status(400).send("This username is already taken.");
+        }
+    }
+
+    if (sessionEmail != email) {
+        const emailExists = await User.exists({ email })
+        if (emailExists) {
+            return res.status(400).send("This email is already taken.");
+        }
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(_id, {
+        name,
+        email,
+        username,
+        location,
+    }, { new: true });
+    req.session.user = updatedUser;
+    
+    return res.send("프로필이 변경되었습니다.")
+
+}
+
 export const remove = (req, res) => res.send("Remove User");
+
 export const logout = (req, res) => {
     req.session.destroy();
     return res.send("Log out ");
