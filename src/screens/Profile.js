@@ -39,7 +39,6 @@ export default function Profile({
             <form onSubmit={logout}>
             <input type="submit" value="로그아웃" />
             </form>
-            {/* <Link to={`/edit`}>프로필 변경하기 &rarr;</Link> */}
             {status && <Redirect to="/" />}
           </div>
         }

@@ -7,6 +7,7 @@ import { EditPost } from "../screens/EditPost";
 import Login from "../screens/Login";
 import Join from "../screens/Join";
 import Profile from "../screens/Profile";
+import { EditProfile } from "../screens/EditProfile";
 
 export default (props)=> {
     return (
@@ -15,6 +16,7 @@ export default (props)=> {
             <Route path="/join" render={(props) => <Join {...props}/>} />
             <Route path="/login" render={(props) => <Login {...props}/>} />
             <Route exact path="/users/:id" render={(props) => <Profile {...props}/>} />
+            <Route path="/users/:id/edit" render={(props) => <EditProfile {...props}/>} />  
             <Route path="/posts/upload" render={(props) => <UploadPost {...props}/>} />
             <Route exact path="/posts/:id" render={(props) => <Post {...props}/>} />
             <Route path="/posts/:id/edit" render={(props) => <EditPost {...props}/>} />
