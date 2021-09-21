@@ -10,6 +10,7 @@ import Profile from "../screens/Profile";
 import { EditProfile } from "../screens/EditProfile";
 
 export default (props)=> {
+    const loggedInUser = props.loggedInUser;
     const loggedInStatus = props.loggedInStatus; 
     return (
         <Router>
@@ -23,7 +24,7 @@ export default (props)=> {
             <Route exact path="/users/:id([0-9a-f]{24})" render={(props) => <Profile {...props}/>} >
             </Route>
             <Route  path="/users/:id([0-9a-f]{24})/edit" render={(props) => <EditProfile {...props}/>}>  
-              {loggedInStatus==="false" && <Redirect to="/" {...props} />}
+              {loggedInStatus==="false" &&  <Redirect to="/" {...props} />}
             </Route>
             <Route exact path="/posts/upload" render={(props) => <UploadPost {...props}/>} >
               {loggedInStatus==="true" ? <UploadPost {...props}/> : <Redirect to="/" {...props} />}
