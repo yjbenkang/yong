@@ -5,7 +5,7 @@ function App({location}) {
   const [loggedInStatus, setLoggedInStatus] = useState(sessionStorage.getItem("loggedIn"));
   return (
     <div>
-        <Router />
+        <Router loggedInStatus={loggedInStatus}/>
         <div>{loggedInStatus}</div>
     </div>
   )

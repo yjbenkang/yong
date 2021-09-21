@@ -10,10 +10,12 @@ import Profile from "../screens/Profile";
 import { EditProfile } from "../screens/EditProfile";
 
 export default (props)=> {
+    const loggedInStatus = props.loggedInStatus; 
     return (
         <Router>
-            <Route exact path="/" render={(props) => <Home {...props}/>} />
-            <Route path="/join" render={(props) => <Join {...props}/>} />
+            <Route exact path="/" render={(props) => <Home loggedInStatus={loggedInStatus} {...props}/>} />
+            <Route path="/join" render={(props) => <Join {...props}/>}>
+            </Route>
             <Route path="/login" render={(props) => <Login {...props}/>} />
             <Route exact path="/users/:id" render={(props) => <Profile {...props}/>} />
             <Route path="/users/:id/edit" render={(props) => <EditProfile {...props}/>} />  
