@@ -8,10 +8,11 @@ export const useLogout = () => {
           const {data :{loggedIn}} = await axios.post(`http://localhost:4000/users/logout`);
           alert("로그아웃되었습니다!")
           sessionStorage.setItem("loggedIn",JSON.stringify(false));
-          window.location.reload() 
+          sessionStorage.setItem("user",JSON.stringify());
+          window.location.replace("/");
         } catch (err) {
           console.log(err.response);
         }
       };
-    return [{logout}];
+  return [{logout}];
 };

@@ -26,6 +26,7 @@ function useLogin({ initialValues, onSubmit, validate, }) {
           { withCredentials: true }
         );
         sessionStorage.setItem("loggedIn",JSON.stringify(loggedIn));
+        sessionStorage.setItem("user",JSON.stringify(user.username));
         setErrors(validate(values));
         alert("로그인되었습니다 !");
         window.location.replace("/");

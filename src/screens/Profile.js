@@ -9,7 +9,7 @@ export default function Profile({
     }
   }){ 
     const [loading, setLoading] = useState(true);
-    const [status,{logout}] = useLogout();
+    const [{logout}] = useLogout();
     const [user,setUser] = useState();
     const getUser = async () => {
       try {
@@ -39,7 +39,6 @@ export default function Profile({
             <form onSubmit={logout}>
             <input type="submit" value="로그아웃" />
             </form>
-            {status && <Redirect to="/" />}
           </div>
         }
       </div>
