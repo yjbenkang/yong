@@ -36,11 +36,11 @@ export const postLogin = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-        return res.status(400).send("An account with this username does not exists.");
+        return res.status(400).send("유저없음");
     }
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) {
-        return res.status(400).send("Wrong password")
+        return res.status(400).send("비밀번호틀림")
     }
 
     req.session.loggedIn = true;

@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 
 export default function Join() {
     const [status,setStatus] = useState("");
+    const [error, setError] = useState();
     const [disabled, setDisabled]=useState(false);
     const [values, setValues]=useState({});
 
@@ -32,12 +33,12 @@ export default function Join() {
           alert("가입이 완료되었습니다 !");
           setDisabled(false);
         } catch (err) {
-          setStatus("가입할 수 없습니다.");
           console.log(err.response);
         }
     }
     return (
         <div>
+            {error && <div>error</div>}
             <form onSubmit={handleSubmit}>
                 <label>
                   Name

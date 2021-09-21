@@ -1,48 +1,28 @@
 import React, { useState } from "react";
-import axios from "axios";
+import validate from "./validate";
+import useLogin from "./useLogin";
 import { Redirect } from "react-router-dom";
 
-axios.defaults.withCredentials = true;
 
 
 export default function Login() {
-    const [status,setStatus] = useState("");
-    const [disabled, setDisabled]=useState(false);
-    const [values, setValues]=useState({});
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setValues({ ...values, [name]: value });
-    }
-
-    const user = {username:values.username, password:values.password};
-
-    const handleSubmit = async (e) => {
-        try{
-          setDisabled(true);
-          e.preventDefault();
-          await axios.post(
-            `http://localhost:4000/login`,
-            user,
-            { withCredentials: true }
-          );
-          setStatus("로그인되었습니다.")
-          setTimeout(() => setStatus(""), 3000);
-          alert("로그인되었습니다 !");
-          setDisabled(false);
-        } catch (err) {
-          setStatus("로그인할 수 없습니다.");
-          console.log(err.response);
-        }
-    }
+  const { values, errors, submittin, disabled, status, handleChange, handleSubmit } = useLogin({
+    initialValues: { username: "", password: "" },
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+    },
+    validate
+  });
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
                 <label>
                   ID
-                  <input type="text" name="username" value={values.username || ''} onChange={handleChange}/>
+                  <input type="text" name="username" value={values.username || ''} onChange={handleChange} className={errors.email && "errorInput"}/>
+                  {errors.username && <span className="errorMessage">{errors.username}</span>}
                 </label>
+                <br />
                 <label>
                   비밀번호
                   <input
@@ -50,8 +30,12 @@ export default function Login() {
                   name="password"
                   value={values.password || ''}
                   onChange={handleChange}
+                  className={errors.password && "errorInput"}
                   required
                   />
+                  {errors.password && (
+                  <span className="errorMessage">{errors.password}</span>
+                  )}
                 </label>
                 <button type="submit" disabled={disabled}>로그인</button>
             </form>
