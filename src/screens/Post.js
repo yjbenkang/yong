@@ -22,6 +22,7 @@ export default function Post({
             <Link to="/">홈으로 &rarr;</Link>
             <h4>{post.제목}</h4>
             <h3>{post.내용}</h3>
+            <h3>{post.owner.username}</h3>
             <form onSubmit={deletePost}>
             <input type="submit" value="게시물 삭제" />
             </form>

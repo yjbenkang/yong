@@ -7,7 +7,7 @@ import { useLogout } from "./useLogout";
 const Home = () => {
     const [loading, setLoading] = useState(true);
     const [posts, setPosts] = useState();
-    const [status,{logout}] = useLogout();
+    const [{logout}] = useLogout();
     async function getHome() {
         try {
             const {data : posts} = await axios.get("http://localhost:4000/");

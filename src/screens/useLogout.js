@@ -2,17 +2,16 @@ import axios from "axios";
 import { useState } from "react";
 
 export const useLogout = () => {
-    const [status, setStatus] = useState("");
     const logout = async (e) => {
         e.preventDefault();
         try {
-          await axios.post(`http://localhost:4000/users/logout`);
-          setStatus("로그아웃되었습니다.");
-          setTimeout(() => setStatus(""), 3000);
+          const {data :{loggedIn}} = await axios.post(`http://localhost:4000/users/logout`);
+          alert("로그아웃되었습니다!")
+          sessionStorage.setItem("loggedIn",JSON.stringify(false));
+          window.location.reload() 
         } catch (err) {
-          setStatus("로그아웃할 수 없습니다.");
           console.log(err.response);
         }
       };
-    return [status,{logout}];
+    return [{logout}];
 };

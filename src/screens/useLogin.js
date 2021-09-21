@@ -4,14 +4,11 @@ import axios from "axios";
 axios.defaults.withCredentials = true;
 
 
-function useLogin({ initialValues, onSubmit, validate }) {
+function useLogin({ initialValues, onSubmit, validate, }) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [disabled, setDisabled]=useState(false);
-  const [status,setStatus] = useState(false);
-
-
   const handleChange = event => {
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
@@ -23,15 +20,15 @@ function useLogin({ initialValues, onSubmit, validate }) {
       try{
         setDisabled(true);
         e.preventDefault();
-        await axios.post(
+        const {data: {loggedIn}}= await axios.post(
           `http://localhost:4000/login`,
           user,
           { withCredentials: true }
         );
+        sessionStorage.setItem("loggedIn",JSON.stringify(loggedIn));
         setErrors(validate(values));
         alert("로그인되었습니다 !");
-        setStatus(true);
-        setTimeout(() => setStatus(""), 3000);
+        window.location.replace("/");
         setDisabled(false);
       } catch (err) {
         alert("로그인 실패 !");
@@ -55,7 +52,6 @@ function useLogin({ initialValues, onSubmit, validate }) {
     errors,
     submitting,
     disabled,
-    status,
     handleChange,
     handleSubmit
   };

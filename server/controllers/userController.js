@@ -88,7 +88,7 @@ export const remove = (req, res) => res.send("Remove User");
 
 export const logout = (req, res) => {
     req.session.destroy();
-    return res.send("Log out ");
+    return res.send(req.session);
 }
 
 export const see = async (req, res) => {

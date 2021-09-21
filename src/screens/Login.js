@@ -39,7 +39,7 @@ export default function Login() {
                 </label>
                 <button type="submit" disabled={disabled}>로그인</button>
             </form>
-            {status && <Redirect to="/" />}
+            {/* {status && <Redirect to="/" />} */}
         </div>
     )
 }
