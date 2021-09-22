@@ -23,6 +23,9 @@ export default function Post({
           <div key={`${post._id}`}>
             <Link to="/">홈으로 &rarr;</Link>
             <h4>{post.제목}</h4>
+            <span>{post.owner.username}</span>
+            <br/>
+            <span>{post.createdAt}</span>
             <h3>{post.내용}</h3>
             {(loggedInStatus && owner && owner === loggedInUser) && 
             <>

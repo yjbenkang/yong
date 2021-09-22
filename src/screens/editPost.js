@@ -52,7 +52,8 @@ export const EditPost = ({
             alert(`게시물이 수정되었습니다.`);
             setDisabled(false);
         } catch (err){
-            setStatus("게시물을 수정할 수 없습니다.");
+          console.log(err.response);
+          setStatus("게시물을 수정할 수 없습니다.");
         }
     }
 
