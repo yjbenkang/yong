@@ -9,7 +9,9 @@ export default function Post({
       params: { id }
     }
   })  {
-    const [loading, post, {getOnePost}] = useGetPost(id);
+    const loggedInStatus = sessionStorage.getItem("loggedIn");
+    const loggedInUser = sessionStorage.getItem("user");
+    const [loading, post, owner, {getOnePost}] = useGetPost(id);
     const [status,{deletePost}] = useDeletePost(id);
     useEffect(()=>{
         getOnePost();
@@ -22,10 +24,15 @@ export default function Post({
             <Link to="/">홈으로 &rarr;</Link>
             <h4>{post.제목}</h4>
             <h3>{post.내용}</h3>
-            <form onSubmit={deletePost}>
-            <input type="submit" value="게시물 삭제" />
-            </form>
-            <Link to={`${post._id}/edit`}>게시물 수정하기 &rarr;</Link>
+            {(loggedInStatus && owner && owner === loggedInUser) && 
+            <>
+              <form onSubmit={deletePost}>
+              <input type="submit" value="게시물 삭제" />
+              </form>
+              <Link to={`${post._id}/edit`}>게시물 수정하기 &rarr;</Link>
+            </>
+            }
+            
             {status && <Redirect to="/" />}
           </div>
         }

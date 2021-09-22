@@ -8,8 +8,6 @@ function App({location}) {
   return (
     <div>
         <Router loggedInUser={loggedInUser} loggedInStatus={loggedInStatus}/>
-        <div>{loggedInStatus}</div>
-        <div>{loggedInUser}</div>
     </div>
   )
 }
