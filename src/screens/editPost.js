@@ -58,9 +58,6 @@ export const EditPost = ({
 
     return (
       <div>
-         {owner}
-         <br/>
-         {loggedInUser}
          {(owner!==undefined && owner !== loggedInUser) && <Redirect to={`/posts/${id}`}/>}
          {loading && < Loader />}
          {post && 

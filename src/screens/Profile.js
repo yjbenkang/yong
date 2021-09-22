@@ -8,6 +8,8 @@ export default function Profile({
       params: { id }
     }
   }){ 
+    const loggedInStatus = sessionStorage.getItem("loggedIn");
+    const loggedInUser = sessionStorage.getItem("user");
     const [loading, setLoading] = useState(true);
     const [{logout}] = useLogout();
     const [user,setUser] = useState();
@@ -36,9 +38,17 @@ export default function Profile({
             <h3>{user.username}</h3>
             <h2>{user.email}</h2>
             <h2>{user.location}</h2>
-            <form onSubmit={logout}>
-            <input type="submit" value="로그아웃" />
-            </form>
+            {loggedInStatus && loggedInUser === id &&
+             <>
+              <form onSubmit={logout}>
+              <input type="submit" value="로그아웃" />
+              </form>
+              <Link to={`/users/${id}/edit`}>프로필 변경 &rarr;</Link>
+              <br/>
+             </>
+            }
+            
+            {/* <Link to="/">비밀번호 변경&rarr;</Link> */}
           </div>
         }
       </div>
