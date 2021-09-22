@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Join from "../screens/Join";
 import Profile from "../screens/Profile";
 import { EditProfile } from "../screens/EditProfile";
+import { EditPassword } from "../screens/EditPassword";
 
 export default (props)=> {
     const loggedInUser = props.loggedInUser;
@@ -24,6 +25,9 @@ export default (props)=> {
             <Route exact path="/users/:id([0-9a-f]{24})" render={(props) => <Profile {...props}/>} >
             </Route>
             <Route  path="/users/:id([0-9a-f]{24})/edit" render={(props) => <EditProfile {...props}/>}>  
+              {loggedInStatus==="false" &&  <Redirect to="/" {...props} />}
+            </Route>
+            <Route  path="/users/:id([0-9a-f]{24})/change-password" render={(props) => <EditPassword {...props}/>}>  
               {loggedInStatus==="false" &&  <Redirect to="/" {...props} />}
             </Route>
             <Route exact path="/posts/upload" render={(props) => <UploadPost {...props}/>} >

@@ -45,10 +45,10 @@ export default function Profile({
               </form>
               <Link to={`/users/${id}/edit`}>프로필 변경 &rarr;</Link>
               <br/>
+              <Link to={`/users/${id}/change-password`}>비밀번호 변경&rarr;</Link>
              </>
             }
             
-            {/* <Link to="/">비밀번호 변경&rarr;</Link> */}
           </div>
         }
       </div>

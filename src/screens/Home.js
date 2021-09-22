@@ -6,6 +6,7 @@ import { useLogout } from "./useLogout";
 
 const Home = ({loggedInStatus}) => {
     const [loading, setLoading] = useState(true);
+    const loggedInUser = sessionStorage.getItem("user");
     const [posts, setPosts] = useState();
     const [{logout}] = useLogout();
     async function getHome() {
@@ -26,6 +27,7 @@ const Home = ({loggedInStatus}) => {
           {loggedInStatus==="true" ? 
           <div>
             <Link to={`posts/upload`}>게시물 등록하기 &rarr;</Link>
+            <Link to={`/users/${loggedInUser}`}>프로필</Link>
             <form onSubmit={logout}>
               <input type="submit" value="로그아웃" />
             </form>
