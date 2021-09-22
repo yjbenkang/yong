@@ -8,6 +8,7 @@ export const EditProfile = ({
       params: { id }
     }
     }) => {
+    const loggedInUser = sessionStorage.getItem("user");
     const [status,setStatus]=useState("");
     const [disabled, setDisabled]=useState(false);
     const [loading, setLoading] = useState(true);
@@ -56,6 +57,7 @@ export const EditProfile = ({
 
     return (
       <div>
+         {id !== loggedInUser && <Redirect to={`/users/${id}`} />}
          {loading && < Loader />}
          {user && 
            <div>

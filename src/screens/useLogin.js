@@ -20,13 +20,13 @@ function useLogin({ initialValues, onSubmit, validate, }) {
       try{
         setDisabled(true);
         e.preventDefault();
-        const {data: {loggedIn}}= await axios.post(
+        const {data}= await axios.post(
           `http://localhost:4000/login`,
           user,
           { withCredentials: true }
         );
-        sessionStorage.setItem("loggedIn",JSON.stringify(loggedIn));
-        sessionStorage.setItem("user",JSON.stringify(user.username));
+        sessionStorage.setItem("loggedIn",data.loggedIn);
+        sessionStorage.setItem("user",data.user._id);
         setErrors(validate(values));
         alert("로그인되었습니다 !");
         window.location.replace("/");

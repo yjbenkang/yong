@@ -8,10 +8,12 @@ export const EditPost = ({
       params: { id }
     }
     }) => {
+    const loggedInUser = sessionStorage.getItem("user");
     const [status,setStatus]=useState("");
     const [disabled, setDisabled]=useState(false);
     const [loading, setLoading] = useState(true);
     const [post, setPost] = useState();
+    const [owner,setOwner] = useState();
     const [values, setValues ]= useState({title:"", text:""});
     const [submitting, setSubmitting] = useState(false);
 
@@ -19,6 +21,7 @@ export const EditPost = ({
       try {
           const {data :post} = await axios.get(`http://localhost:4000/posts/${id}`);
           setPost(post);
+          setOwner(post.owner._id);
           setValues({title:post.제목,text:post.내용})
       } catch (err) {
           console.log(err.response);
@@ -42,7 +45,7 @@ export const EditPost = ({
             setDisabled(true);
             e.preventDefault();
             setSubmitting(true);
-            await axios.put(`http://localhost:4000/posts/${id}/edit`, newPost);
+            const data = await axios.put(`http://localhost:4000/posts/${id}/edit`, newPost);
             setSubmitting(false);
             setStatus("게시물이 성공적으로 수정되었습니다.");
             setTimeout(() => setStatus(""), 3000);
@@ -55,6 +58,10 @@ export const EditPost = ({
 
     return (
       <div>
+         {owner}
+         <br/>
+         {loggedInUser}
+         {(owner!==undefined && owner !== loggedInUser) && <Redirect to={`/posts/${id}`}/>}
          {loading && < Loader />}
          {post && 
            <div>

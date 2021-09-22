@@ -27,7 +27,7 @@ export default (props)=> {
               {loggedInStatus==="false" &&  <Redirect to="/" {...props} />}
             </Route>
             <Route exact path="/posts/upload" render={(props) => <UploadPost {...props}/>} >
-              {loggedInStatus==="true" ? <UploadPost {...props}/> : <Redirect to="/" {...props} />}
+              {loggedInStatus==="false" && <Redirect to="/" {...props} />}
             </Route>
             <Route exact path="/posts/:id([0-9a-f]{24})" render={(props) => <Post {...props}/>} >
             </Route>
