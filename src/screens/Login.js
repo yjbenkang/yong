@@ -22,7 +22,7 @@ export default function Login() {
                   <input type="text" name="username" value={values.username || ''} onChange={handleChange} className={errors.email && "errorInput"}/>
                   {errors.username && <span className="errorMessage">{errors.username}</span>}
                 </label>
-                <br />
+                <br/>
                 <label>
                   비밀번호
                   <input
@@ -37,6 +37,7 @@ export default function Login() {
                   <span className="errorMessage">{errors.password}</span>
                   )}
                 </label>
+                <br/>
                 <button type="submit" disabled={disabled}>로그인</button>
             </form>
         </div>

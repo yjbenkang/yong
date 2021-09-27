@@ -44,14 +44,17 @@ export default function Join() {
                   Name
                   <input type="text" name="name" value={values.name || ''} onChange={handleChange} required />
                 </label>
+                <br/>
                 <label>
                   Email
                   <input type="email" name="email" value={values.email || ''} onChange={handleChange} required />
                 </label>
+                <br/>
                 <label>
                   Username
                   <input type="text" name="username" value={values.username || ''} onChange={handleChange} required />
                 </label>
+                <br/>
                 <label>
                   비밀번호
                   <input
@@ -62,6 +65,7 @@ export default function Join() {
                   required
                   />
                 </label>
+                <br/>
                 <label>
                   비밀번호
                   <input
@@ -72,10 +76,12 @@ export default function Join() {
                   required
                   />
                 </label>
+                <br/>
                 <label>
-                  Name
+                  지역
                   <input type="text" name="location" value={values.location || ''} onChange={handleChange} required />
                 </label>
+                <br/>
                 <button type="submit" disabled={disabled}>회원가입</button>
             </form>
             {status && <Redirect to="/" />}

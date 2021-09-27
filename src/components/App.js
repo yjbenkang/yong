@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Router from "./Router";
+import GlobalStyles from "./GlobalStyles";
 
 function App({location}) {
   const [loggedInStatus, setLoggedInStatus] = useState(sessionStorage.getItem("loggedIn"));
@@ -8,6 +9,7 @@ function App({location}) {
   return (
     <div>
         <Router loggedInUser={loggedInUser} loggedInStatus={loggedInStatus}/>
+        <GlobalStyles />
     </div>
   )
 }

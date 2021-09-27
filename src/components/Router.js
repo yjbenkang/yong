@@ -2,20 +2,24 @@ import React from "react";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Home from "../screens/Home";
 import Post from "../screens/Post";
+import Header from "./Header";
 import { UploadPost } from "../screens/UploadPost";
 import { EditPost } from "../screens/EditPost";
 import Login from "../screens/Login";
 import Join from "../screens/Join";
 import Profile from "../screens/Profile";
+import { useLogout } from "../screens/useLogout";
 import { EditProfile } from "../screens/EditProfile";
 import { EditPassword } from "../screens/EditPassword";
 
 export default (props)=> {
-    const loggedInUser = props.loggedInUser;
-    const loggedInStatus = props.loggedInStatus; 
+    const loggedInStatus = sessionStorage.getItem("loggedIn");
+    const loggedInUser = sessionStorage.getItem("user");
+    const [{logout}] = useLogout();
     return (
         <Router>
-            <Route exact path="/" render={(props) => <Home loggedInStatus={loggedInStatus} {...props}/>} />
+            <Header loggedInStatus={loggedInStatus} loggedInUser={loggedInUser} logout={logout} />
+            <Route exact path="/" render={(props) => <Home {...props}/>} />
             <Route path="/join" render={(props) => <Join {...props}/>}>
               {loggedInStatus==="true" ? <Redirect to="/" {...props} /> : <Join {...props}/>}
             </Route>

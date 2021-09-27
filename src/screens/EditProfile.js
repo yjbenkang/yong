@@ -67,18 +67,22 @@ export const EditProfile = ({
                  이름
                  <input type="text" name="name" value={values.name} onChange={handleChange}/>
                </label>
+               <br/>
                <label>
                  이메일
                  <input type="email" name="email" value={values.email} onChange={handleChange}/>
                </label>
+               <br/>
                <label>
                  유저네임(ID)
                  <input type="text" name="username" value={values.username} onChange={handleChange}/>
                </label>
+               <br/>
                <label>
                  활동지역
                  <input type="text" name="location" value={values.location} onChange={handleChange}/>
                </label>
+               <br/>
                <button type="submit" disabled={disabled}>프로필 변경</button>
              </form>
            {status && <Redirect to={`/users/${id}`} />}
