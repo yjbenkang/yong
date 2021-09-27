@@ -32,16 +32,28 @@ const SLink = styled(Link)`
     margin-right: 20px;
 `;
 
+const Input = styled.input`
+  display:block;
+  color:white;
+  background: none;
+  border: none;   
+  margin-right: 20px;
+  font-size:15px;
+  margin-top:4px;
+  cursor: pointer;
+`;
 export default withRouter(({loggedInStatus, loggedInUser, logout, location: { pathname } }) => (
   
   <Header>
-    <HeadLine>Blog</HeadLine>
+    <HeadLine>
+      <SLink to={`/`}>Blog</SLink>
+    </HeadLine>
     {loggedInStatus==="true" ? 
         <List>
-          <SLink to={`posts/upload`}>게시물 등록하기 &rarr;</SLink>
+          <SLink to={"/posts/upload"}>게시물 등록하기</SLink>
           <SLink to={`/users/${loggedInUser}`}>프로필</SLink>
           <form onSubmit={logout}>
-            <input type="submit" value="로그아웃" />
+            <Input type="submit" value="로그아웃" />
           </form>
         </List>
         :

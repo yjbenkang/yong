@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
-import Header from "../components/Header";
 import axios from "axios";
 import { useLogout } from "./useLogout";
 import styled from "styled-components";
@@ -17,9 +16,6 @@ const Description = styled.div`
 
 const Home = () => {
     const [loading, setLoading] = useState(true);
-    const loggedInStatus = sessionStorage.getItem("loggedIn");
-    const loggedInUser = sessionStorage.getItem("user");
-    const [{logout}] = useLogout();
     const [posts, setPosts] = useState();
     async function getHome() {
         try {
