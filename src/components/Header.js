@@ -25,21 +25,29 @@ const HeadLine = styled.h1`
 const List = styled.ul`
   display: flex;
   align-items:center;  
+  justify-content: space-between;
 `;
 
 const SLink = styled(Link)`
     color:white;
-    margin-right: 20px;
 `;
+
+const Item = styled.li`
+  margin-right: 20px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid
+    ${(props) => (props.current ? "#ffca27" : "transparent")};
+  transition: border-bottom 0.5s linear;
+`;
+
 
 const Input = styled.input`
   display:block;
   color:white;
-  background: none;
+  background: transparent;
   border: none;   
-  margin-right: 20px;
   font-size:15px;
-  margin-top:4px;
+  margin-top:-7px;
   cursor: pointer;
 `;
 export default withRouter(({loggedInStatus, loggedInUser, logout, location: { pathname } }) => (
@@ -50,16 +58,24 @@ export default withRouter(({loggedInStatus, loggedInUser, logout, location: { pa
     </HeadLine>
     {loggedInStatus==="true" ? 
         <List>
-          <SLink to={"/posts/upload"}>게시물 등록하기</SLink>
-          <SLink to={`/users/${loggedInUser}`}>프로필</SLink>
+          <Item current={pathname === "/posts/upload"}>
+            <SLink to={"/posts/upload"}>게시물 등록하기</SLink>
+          </Item>
+          <Item current={pathname === `/users/${loggedInUser}`}>
+            <SLink to={`/users/${loggedInUser}`}>프로필</SLink>
+          </Item>
           <form onSubmit={logout}>
             <Input type="submit" value="로그아웃" />
           </form>
         </List>
         :
         <List>
-          <SLink to={`/login`}>로그인</SLink>
-          <SLink to={`/join`}>회원가입</SLink>
+          <Item current={pathname === `/login`}>
+            <SLink to={`/login`}>로그인</SLink>
+          </Item>
+          <Item current={pathname === `/join`}>
+            <SLink to={`/join`}>회원가입</SLink>
+          </Item>
         </List>
     }   
   </Header>
